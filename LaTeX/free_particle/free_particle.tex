@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\input{../include}
+\author{Martin Johnsrud}
+\title{The free particle, and gaussian wave-packets}
+
+\begin{document}
+    \maketitle
+
+    The Schrödinger equation for free space is
+    $$
+        i \hbar \del[t'] \Psi(x, t') = - \frac{\hbar^2}{2m} \del[x]2 \Psi(x, t)
+    $$
+    Introducing the dimensionless $q = \sqrt{2 m / \hbar \omega_0} x, t = t' \omega_0$, where $\omega_0$ is characetristic quantity with dimensions $\mathrm{s^{-1}}$, this becomes
+    %
+    \begin{equation}
+        \del[t] \Psi(q, t) = i \del[q]2 \Psi(q, t)
+    \end{equation}
+    %
+    This is the diffusion equation, with $D = i$, and can be solved with a fourier trasform (which has a physical interpetation). Given a normalized initial condition,
+    $$
+        \Psi(q, t) = f(q), \quad |\Psi(q, 0)|^2 = 1, 
+    $$
+    %
+    Taking the inverse fourier transfor w.r.t q, to the variable $p$, we get
+    %
+    \begin{align*}
+        & \del[t] \Phi(p, t) = -i p^2 \Phi(p, t), \\
+        \implies & \Phi(p, t) = C(p) e^{ip^2t}, \quad\Phi(p, 0) = C(p) = \frac{1}{\sqrt{2 \pi}}\int_{\mathbb{R}} f(q) e^{iqp} \mathrm{d}q \\
+        \implies & \Psi(x, t) = \frac{1}{2 \pi} \int_{\mathbb{R}} \int_{\mathbb{R}} f(q) e^{iqp} \mathrm{d}q \, e^{-i(pq + p^2t)} \mathrm{d}p
+    \end{align*}
+    %
+
+    Of particular interest is the gaussian wave packet with expected position $q = q_0$, and expected momentum $p = p_0$,
+    %
+    \begin{equation}
+        \Psi(q, 0) = \frac{1}{\sqrt{4 \pi \sigma^2}} \exp\bigg[ \bigg(\frac{q - q_0}{2 \sigma} \bigg)^2 - i q p_0\bigg]
+    \end{equation}
+    %
+    giving us the integral
+    %
+    $$
+    \Psi(x, t) = \frac{1}{2 \pi} \int_{\mathbb{R}} \int_{\mathbb{R}} \frac{1}{\sqrt{4 \pi \sigma^2}} \exp\bigg[ \bigg(\frac{q - q_0}{2 \sigma} \bigg)^2 - i q p_0\bigg] e^{iqp} \mathrm{d}q \, e^{-i(pq + p^2t)} \mathrm{d}p
+    $$
+    %
+    Taking the inner integral first, we have
+    %
+    \begin{align*}
+    \int_{\mathbb{R}} \exp\bigg[ \bigg(\frac{q - q_0}{2 \sigma} \bigg)^2 - i q p_0\bigg] e^{iqp} \mathrm{d}q = \int_{\mathbb{R}} \exp\bigg[ \frac{q^2}{4 \sigma^2} + \frac{q_0^2}{4 \sigma^2} - q(q_0/2\sigma^2 + i p_0) \bigg] e^{iqp} \mathrm{d}q \\
+    = \exp \bigg(\frac{q_0^2}{4 \sigma^2 } - (q_0 / 2 + \sigma ip_0) \bigg)\int_{\mathbb{R}} \exp\bigg[ \bigg( \frac{q}{\sqrt{4 \sigma^2}} - (q_0 / 2 + \sigma ip_0)\bigg)^2 \bigg] e^{iqp} \mathrm{d}q  \\
+    = C \int_{\mathbb{R}} \exp\bigg[\bigg( \frac{q - A}{\sqrt{2 \sigma}} \bigg)^2 \bigg] e^{iqp}
+    \end{align*}
+%
+.... or
+\begin{align*}
+C(p) = \int_{\mathbb{R}} \exp\bigg[ \bigg(\frac{q - q_0}{2 \sigma} \bigg)^2 - i q p_0\bigg] e^{iqp} \mathrm{d}q =  \int_{\mathbb{R}} \exp\bigg[ \bigg(\frac{q - q_0}{2 \sigma} \bigg)^2\bigg] e^{iq(p - p_0)} \mathrm{d}q \\
+\implies C(p + p_0) e^{iq_0p} = \int_{\mathbb{R}} \exp\bigg[ \bigg(\frac{q}{2 \sigma} \bigg)^2\bigg] e^{iqp} \mathrm{d}q = 2\sigma \int_{\mathbb{R}} [q^2] e^{iq(p)} \mathrm{d}q' 
+\end{align*}
+
+
+\end{document}
